@@ -12,7 +12,7 @@ import { MessagesContainer } from "../components/messages-container";
 
 interface Props {
   projectId: string;
-};
+}
 
 export const ProjectView = ({ projectId }: Props) => {
   return (
@@ -28,10 +28,7 @@ export const ProjectView = ({ projectId }: Props) => {
           </Suspense>
         </ResizablePanel>
         <ResizableHandle withHandle />
-        <ResizablePanel
-          defaultSize={65}
-          minSize={50}
-        >
+        <ResizablePanel defaultSize={65} minSize={50}>
           TODO: Preview
         </ResizablePanel>
       </ResizablePanelGroup>
