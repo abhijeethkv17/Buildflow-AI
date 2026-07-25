@@ -17,3 +17,6 @@ RUN npx shadcn@latest add --all -y
 
 # Move the Nextjs app to the home directory and remove the nextjs-app directory
 RUN cp -r /home/user/nextjs-app/. /home/user/
+
+# E2B sandbox working command on Windows powershell
+# e2b template create buildflow-nextjs-test --cmd "/compile_page.sh" --ready-cmd "curl -f http://localhost:3000"
