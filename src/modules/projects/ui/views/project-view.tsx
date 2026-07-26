@@ -9,12 +9,13 @@ import {
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
 
+import { FragmentWeb } from "../components/fragment-web";
 import { ProjectHeader } from "../components/project-header";
 import { MessagesContainer } from "../components/messages-container";
 
 interface Props {
   projectId: string;
-};
+}
 
 export const ProjectView = ({ projectId }: Props) => {
   const [activeFragment, setActiveFragment] = useState<Fragment | null>(null);
@@ -39,11 +40,8 @@ export const ProjectView = ({ projectId }: Props) => {
           </Suspense>
         </ResizablePanel>
         <ResizableHandle withHandle />
-        <ResizablePanel
-          defaultSize={65}
-          minSize={50}
-        >
-          TODO: Preview
+        <ResizablePanel defaultSize={65} minSize={50}>
+          {!!activeFragment && <FragmentWeb data={activeFragment} />}
         </ResizablePanel>
       </ResizablePanelGroup>
     </div>
