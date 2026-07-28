@@ -26,6 +26,7 @@ export const ProjectsList = () => {
             key={project.id}
             variant="outline"
             className="font-normal h-auto justify-start w-full text-start p-4"
+            nativeButton={false}
             render={
               <Link href={`/projects/${project.id}`}>
                 <div className="flex items-center gap-x-4">

@@ -66,6 +66,7 @@ export const ProjectView = ({ projectId }: Props) => {
                 <Button
                   size="sm"
                   variant="default"
+                  nativeButton={false}
                   render={
                     <Link href="/pricing">
                       <CrownIcon /> Upgrade
