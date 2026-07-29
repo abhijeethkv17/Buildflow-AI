@@ -82,7 +82,10 @@ export const codeAgentFunction = inngest.createFunction(
               }),
             ),
           }),
-          handler: async ({ files }, { step, network }: Tool.Options<AgentState>) => {
+          handler: async (
+            { files },
+            { step, network }: Tool.Options<AgentState>,
+          ) => {
             const newFiles = await step?.run(
               "createOrUpdateFiles",
               async () => {
@@ -168,6 +171,11 @@ export const codeAgentFunction = inngest.createFunction(
 
     const sandboxUrl = await step.run("get-sandbox-url", async () => {
       const sandbox = await getSandbox(sandboxId);
+      // TEMP DEBUG — remove after checking
+      // const check = await sandbox.commands.run(
+      //   "curl -s -o /dev/null -w 'HTTP_%{http_code}' http://localhost:3000 || echo 'CURL_FAILED'",
+      // );
+      // console.log("Dev server check:", check.stdout);
       const host = sandbox.getHost(3000);
       return `https://${host}`;
     });
