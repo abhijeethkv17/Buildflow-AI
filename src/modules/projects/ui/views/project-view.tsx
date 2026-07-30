@@ -1,11 +1,13 @@
 "use client";
 
 import Link from "next/link";
+import { useAuth } from "@clerk/nextjs";
 import { Suspense, useState } from "react";
 import { EyeIcon, CodeIcon, CrownIcon } from "lucide-react";
 
 import { Fragment } from "@/generated/prisma/client";
 import { Button } from "@/components/ui/button";
+import { UserControl } from "@/components/user-control";
 import { FileExplorer } from "@/components/file-explorer";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
@@ -17,13 +19,15 @@ import {
 import { FragmentWeb } from "../components/fragment-web";
 import { ProjectHeader } from "../components/project-header";
 import { MessagesContainer } from "../components/messages-container";
-import { UserControl } from "@/components/user-control";
 
 interface Props {
   projectId: string;
 }
 
 export const ProjectView = ({ projectId }: Props) => {
+  const { has } = useAuth();
+  const hasProAccess = has?.({ plan: "pro" });
+
   const [activeFragment, setActiveFragment] = useState<Fragment | null>(null);
   const [tabState, setTabState] = useState<"preview" | "code">("preview");
 
@@ -64,16 +68,16 @@ export const ProjectView = ({ projectId }: Props) => {
                 </TabsTrigger>
               </TabsList>
               <div className="ml-auto flex items-center gap-x-2">
-                <Button
-                  size="sm"
-                  variant="default"
-                  nativeButton={false}
-                  render={
-                    <Link href="/pricing">
-                      <CrownIcon /> Upgrade
-                    </Link>
-                  }
-                />
+                {!hasProAccess && (
+                  <Button
+                    size="sm"
+                    render={
+                      <Link href="/pricing">
+                        <CrownIcon /> Upgrade
+                      </Link>
+                    }
+                  />
+                )}
                 <UserControl />
               </div>
             </div>
