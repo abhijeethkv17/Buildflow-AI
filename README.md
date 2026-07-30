@@ -635,7 +635,6 @@ It provides sign‑in/up, session/middleware handling, and plan‑based billing 
 
 ## Acknowledgements
 
-- Built while following [`code-with-antonio/nextjs-vibe`](https://github.com/code-with-antonio) as a structural reference, then adapted to newer major versions (Next.js 16, Zod 4, Prisma 7, Clerk Core 3, Tailwind v4, Base UI–flavored shadcn/ui) and a custom LLM proxy / E2B sandbox setup.
 - [Inngest](https://www.inngest.com/) and [Agent Kit](https://agentkit.inngest.com/) for the durable execution and agent orchestration primitives.
 - [E2B](https://e2b.dev/) for sandboxed code execution.
 - [Clerk](https://clerk.com/) for authentication and billing.
