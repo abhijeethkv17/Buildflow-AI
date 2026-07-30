@@ -28,9 +28,15 @@
 > Buildflow AI is a **Lovable / v0‑style AI app builder**: a user describes what they want in plain English, and a multi‑agent system writes real Next.js code, executes it inside a live E2B sandbox, and streams the result back as a working, clickable preview alongside the generated source files.
 
 <div align="center">
-  <img src="https://placehold.co/1200x675/0a0a0a/ededed?text=Buildflow+AI+%E2%80%94+Chat+%2B+Live+Preview+Screenshot" alt="Buildflow AI dashboard screenshot placeholder" width="100%" />
+  <img src="screenshots/Home Page.png" alt="Buildflow AI dashboard screenshot" width="100%" />
   <br/>
-  <sub>Screenshot placeholder — replace with an actual capture of the split chat / live‑preview workspace.</sub>
+  <img src="screenshots/Services section.png" alt="Buildflow AI demo screenshot" width="100%" />
+  <br/>
+  <img src="screenshots/Pricing Page.png" alt="Buildflow AI demo screenshot" width="100%" />
+  <br/>
+  <img src="screenshots/Generated code.png" alt="Buildflow AI demo screenshot" width="100%" />
+  <br/>
+  <sub>Demo Screenshots of the home page and the workspace page of Buildflow AI.</sub>
 </div>
 
 ---
