@@ -14,6 +14,7 @@ import { getSandbox, parseAgentOutput } from "./utils";
 import { FRAGMENT_TITLE_PROMPT, PROMPT, RESPONSE_PROMPT } from "@/prompt";
 import { prisma } from "@/lib/db";
 import { lastAssistantTextMessageContent } from "./utils";
+import { SANDBOX_TIMEOUT } from "./types";
 
 interface AgentState {
   summary: string;
@@ -28,6 +29,7 @@ export const codeAgentFunction = inngest.createFunction(
       const sandbox = await Sandbox.create(
         "abhijeeths-default-team/buildflow-nextjs-test",
       );
+      await sandbox.setTimeout(SANDBOX_TIMEOUT);
       return sandbox.sandboxId;
     });
 
@@ -41,8 +43,9 @@ export const codeAgentFunction = inngest.createFunction(
             projectId: event.data.projectId,
           },
           orderBy: {
-            createdAt: "desc", // TODO: Change to "asc" if AI does not understand what is the latest message
+            createdAt: "desc",
           },
+          take: 5,
         });
 
         for (const message of messages) {
@@ -53,7 +56,7 @@ export const codeAgentFunction = inngest.createFunction(
           });
         }
 
-        return formattedMessages;
+        return formattedMessages.reverse();
       },
     );
 
@@ -210,6 +213,8 @@ export const codeAgentFunction = inngest.createFunction(
       system: FRAGMENT_TITLE_PROMPT,
       model: openai({
         model: "gpt-4o-mini",
+        apiKey: process.env.OPENAI_API_KEY!,
+        baseUrl: "https://aicredits.in/v1",
       }),
     });
 
@@ -219,6 +224,8 @@ export const codeAgentFunction = inngest.createFunction(
       system: RESPONSE_PROMPT,
       model: openai({
         model: "gpt-4o-mini",
+        apiKey: process.env.OPENAI_API_KEY!,
+        baseUrl: "https://aicredits.in/v1",
       }),
     });
 
@@ -259,13 +266,13 @@ export const codeAgentFunction = inngest.createFunction(
       return await prisma.message.create({
         data: {
           projectId: event.data.projectId,
-          content: result.state.data.summary,
+          content: parseAgentOutput(responseOutput),
           role: "ASSISTANT",
           type: "RESULT",
           fragment: {
             create: {
               sandboxUrl: sandboxUrl,
-              title: parseAgentOutput(responseOutput),
+              title: parseAgentOutput(fragmentTitleOuput),
               files: result.state.data.files,
             },
           },
